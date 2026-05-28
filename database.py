@@ -9,14 +9,16 @@ def fetch_live_global_infrastructure(lat: float, lon: float, radius_meters: int 
         "https://overpass.osm.ch/api/interpreter"
     ]
     
+    # Expanded Overpass query adding Fire Stations to the search filters
     query = f"""
-    [out:json][timeout:12];
+    [out:json][timeout:15];
     (
-      node["amenity"="hospital"](around:{radius_meters},{lat},{lon});
-      node["amenity"="police"](around:{radius_meters},{lat},{lon});
-      node["emergency"="ambulance_station"](around:{radius_meters},{lat},{lon});
-      node["shop"="car_repair"](around:{radius_meters},{lat},{lon});
-      node["craft"="mechanic"](around:{radius_meters},{lat},{lon});
+    node["amenity"="hospital"](around:{radius_meters},{lat},{lon});
+    node["amenity"="police"](around:{radius_meters},{lat},{lon});
+    node["emergency"="ambulance_station"](around:{radius_meters},{lat},{lon});
+    node["amenity"="fire_station"](around:{radius_meters},{lat},{lon});
+    node["shop"="car_repair"](around:{radius_meters},{lat},{lon});
+    node["craft"="mechanic"](around:{radius_meters},{lat},{lon});
     );
     out center;
     """
